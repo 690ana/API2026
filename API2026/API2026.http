@@ -1,16 +1,18 @@
 @host = http://localhost:5000
+@demoUsuario = <valor de UsuarioDemo__Usuario>
+@demoClave = <valor de UsuarioDemo__Clave>
 
 # Ejemplo de recorrido completo. Ejecuta las solicitudes en orden:
 # la base de datos es en memoria y se reinicia cada vez que arranca la API.
 
-### Iniciar sesión como docente (usuario demo definido en appsettings.json)
+### Iniciar sesión como docente (credenciales en las variables de entorno UsuarioDemo__Usuario y UsuarioDemo__Clave)
 # @name loginDocente
 POST {{host}}/api/Auth/Login
 Content-Type: application/json
 
 {
-  "usuario": "docente",
-  "clave": "Uco2026!"
+  "usuario": "{{demoUsuario}}",
+  "clave": "{{demoClave}}"
 }
 
 ### Crear la cuenta de un estudiante (solo el docente puede registrarla)

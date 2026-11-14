@@ -22,6 +22,11 @@ builder.Services.AddTransient<IResultados, ServicioResultados>();
 var claveJwt = builder.Configuration["Jwt:Clave"]
     ?? throw new InvalidOperationException("No se configuró Jwt:Clave.");
 
+_ = builder.Configuration["UsuarioDemo:Usuario"]
+    ?? throw new InvalidOperationException("No se configuró UsuarioDemo:Usuario.");
+_ = builder.Configuration["UsuarioDemo:Clave"]
+    ?? throw new InvalidOperationException("No se configuró UsuarioDemo:Clave.");
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opciones =>
     {
