@@ -1,0 +1,9 @@
+# Visual Studio / build
+.vs/
+bin/
+obj/
+*.user
+*.suo
+
+# Blazor template not part of API2026.slnx
+BlazorApp1/

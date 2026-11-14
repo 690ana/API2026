@@ -1,0 +1,66 @@
+@host = http://localhost:5000
+
+# Ejemplo de recorrido completo. Ejecuta las solicitudes en orden:
+# la base de datos es en memoria y se reinicia cada vez que arranca la API.
+
+### Iniciar sesión como docente (usuario demo definido en appsettings.json)
+# @name loginDocente
+POST {{host}}/api/Auth/Login
+Content-Type: application/json
+
+{
+  "usuario": "docente",
+  "clave": "Uco2026!"
+}
+
+### Crear la cuenta de un estudiante (solo el docente puede registrarla)
+POST {{host}}/api/Estudiantes/Registrar
+Authorization: Bearer {{loginDocente.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "idEstudiante": "2026-001",
+  "nombre": "Ana Pérez",
+  "usuario": "ana",
+  "clave": "123456"
+}
+
+### Iniciar sesión como estudiante (con la cuenta creada arriba)
+# @name loginEstudiante
+POST {{host}}/api/Auth/Login
+Content-Type: application/json
+
+{
+  "usuario": "ana",
+  "clave": "123456"
+}
+
+### Consolidar notas (solo docente)
+# El promedio se calcula por estudiante y exposición. Repetir la solicitud
+# reemplaza únicamente el resultado de ese par, sin tocar los demás.
+POST {{host}}/api/Resultados/Consolidar
+Authorization: Bearer {{loginDocente.response.body.$.token}}
+Content-Type: application/json
+
+[
+  {
+    "idEstudiante": "2026-001",
+    "idExposicion": 1,
+    "nombreExposicion": "APIs REST con .NET",
+    "nota": 4.5
+  },
+  {
+    "idEstudiante": "2026-001",
+    "idExposicion": 1,
+    "nombreExposicion": "APIs REST con .NET",
+    "nota": 3.5
+  }
+]
+
+### Listar todos los resultados consolidados (solo docente)
+GET {{host}}/api/Resultados
+Authorization: Bearer {{loginDocente.response.body.$.token}}
+
+### Consultar mis resultados (solo estudiante; el servidor usa el código del token)
+GET {{host}}/api/Resultados/Consultar
+Authorization: Bearer {{loginEstudiante.response.body.$.token}}

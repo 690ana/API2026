@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resultados de exposiciones</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+    <main class="contenedor">
+        <header class="encabezado">
+            <div class="marca">
+                <img src="/images/logo-uco.png" alt="Logo UCO" class="logo-uco">
+                <div>
+                    <p class="institucion">UCO</p>
+                    <p class="etiqueta">JEAC · Resultados</p>
+                </div>
+            </div>
+            <h1>Resultados de exposiciones</h1>
+            <p>Registra las calificaciones y consulta el promedio de cada exposición.</p>
+        </header>
+
+        <section id="seccion-login" class="tarjeta" aria-labelledby="titulo-login">
+            <h2 id="titulo-login">Iniciar sesión</h2>
+            <p>Ingresa con la cuenta del docente o con tu cuenta de estudiante.</p>
+            <form id="formulario-login">
+                <label>Usuario
+                    <input id="usuario" type="text" autocomplete="username" required>
+                </label>
+                <label>Clave
+                    <input id="clave" type="password" autocomplete="current-password" required>
+                </label>
+                <button class="boton" type="submit">Ingresar</button>
+            </form>
+        </section>
+
+        <div id="contenido-principal" hidden>
+        <div class="fila-titulo"><p id="usuario-actual"></p><button id="boton-salir" class="boton boton-secundario" type="button">Cerrar sesión</button></div>
+        <section id="panel-docente" hidden>
+        <section class="tarjeta" aria-labelledby="titulo-cuenta">
+            <h2 id="titulo-cuenta">Crear cuenta de estudiante</h2>
+            <form id="formulario-estudiante">
+                <label>Código estudiantil
+                    <input id="codigo-estudiante" type="text" required>
+                </label>
+                <label>Nombre del estudiante
+                    <input id="nombre-estudiante" type="text" required>
+                </label>
+                <label>Usuario
+                    <input id="usuario-estudiante" type="text" required>
+                </label>
+                <label>Clave (mínimo 6 caracteres)
+                    <input id="clave-estudiante" type="password" minlength="6" required>
+                </label>
+                <button class="boton" type="submit">Crear cuenta</button>
+            </form>
+        </section>
+
+        <section class="tarjeta" aria-labelledby="titulo-registro">
+            <h2 id="titulo-registro">Registrar calificaciones</h2>
+            <form id="formulario-calificacion">
+                <label>Código estudiantil
+                    <input id="id-estudiante" type="text" required>
+                </label>
+                <label>Id de exposición
+                    <input id="id-exposicion" type="number" min="1" required>
+                </label>
+                <label>Nombre de exposición
+                    <input id="nombre-exposicion" type="text" required>
+                </label>
+                <label>Nota
+                    <input id="nota" type="number" min="0" max="5" step="0.1" required>
+                </label>
+                <button class="boton boton-secundario" type="submit">Agregar calificación</button>
+            </form>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead><tr><th>Estudiante</th><th>Exposición</th><th>Nombre</th><th>Nota</th></tr></thead>
+                    <tbody id="tabla-calificaciones"></tbody>
+                </table>
+            </div>
+            <button id="boton-consolidar" class="boton" type="button">Consolidar resultados</button>
+        </section>
+
+        <section class="tarjeta" aria-labelledby="titulo-resultados">
+            <div class="fila-titulo">
+                <h2 id="titulo-resultados">Resultados consolidados</h2>
+            </div>
+            <div class="tabla-contenedor">
+                <table>
+                    <thead><tr><th>Estudiante</th><th>Exposición</th><th>Promedio</th><th>Evaluaciones</th></tr></thead>
+                    <tbody id="tabla-resultados-docente"></tbody>
+                </table>
+            </div>
+        </section>
+        </section>
+
+        <section id="panel-estudiante" class="tarjeta" aria-labelledby="titulo-mis-resultados" hidden>
+            <div class="fila-titulo">
+                <h2 id="titulo-mis-resultados">Mis resultados consolidados</h2>
+                <button id="boton-consultar" class="boton boton-secundario" type="button">Consultar mis resultados</button>
+            </div>
+            <div class="tabla-contenedor">
+                <table>
+                    <thead><tr><th>Exposición</th><th>Promedio</th><th>Evaluaciones</th></tr></thead>
+                    <tbody id="tabla-resultados-estudiante"></tbody>
+                </table>
+            </div>
+        </section>
+        <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+        </div>
+    </main>
+    <script src="/js/app.js"></script>
+</body>
+</html>
